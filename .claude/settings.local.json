@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:github.com)",
+      "Bash(npm create:*)",
+      "Bash(dir)",
+      "Bash(npm install:*)",
+      "Bash(echo \"EXIT:$?\")",
+      "WebFetch(domain:fund.eastmoney.com)",
+      "WebFetch(domain:fundsuggest.eastmoney.com)",
+      "Bash(curl -s \"http://localhost:3000/api/nav?code=000001\")",
+      "Bash(git config:*)",
+      "Bash(dir F:\\\\CODE\\\\Web\\\\ma120:*)"
+    ]
+  }
+}
