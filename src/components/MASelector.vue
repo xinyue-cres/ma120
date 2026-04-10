@@ -4,11 +4,10 @@
       v-for="p in periods"
       :key="p"
       @click="toggle(p)"
+      :style="selected.includes(p) ? { backgroundColor: MA_COLORS[p] + '33', color: MA_COLORS[p], borderColor: MA_COLORS[p] } : {}"
       :class="[
-        'px-3 py-1 rounded text-xs font-mono transition-colors',
-        selected.includes(p)
-          ? 'bg-blue-600 text-white'
-          : 'bg-slate-700 text-slate-400 hover:bg-slate-600'
+        'px-3 py-1 rounded text-xs font-mono transition-colors border',
+        selected.includes(p) ? 'border-opacity-60' : 'bg-slate-700 text-slate-400 hover:bg-slate-600 border-transparent'
       ]"
     >
       MA{{ p }}
@@ -18,6 +17,7 @@
 
 <script setup>
 import { ref } from 'vue'
+import { MA_COLORS } from '@/composables/maColors.js'
 
 const periods = [5, 10, 20, 60, 120, 250]
 const selected = defineModel({ default: () => [20, 60, 120] })

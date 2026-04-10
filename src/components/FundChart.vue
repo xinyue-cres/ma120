@@ -14,6 +14,7 @@
 import { ref, watch, onMounted, onUnmounted, nextTick } from 'vue'
 import * as echarts from 'echarts'
 import { fetchFundNav, fetchEtfKline, isEtf, calcMA } from '@/composables/useFundData.js'
+import { MA_COLORS } from '@/composables/maColors.js'
 
 const props = defineProps({
   fund: { type: Object, default: null },
@@ -26,15 +27,6 @@ const error = ref('')
 const chartHeight = ref('420px')
 
 let chart = null
-
-const MA_COLORS = {
-  5: '#facc15',
-  10: '#fb923c',
-  20: '#34d399',
-  60: '#60a5fa',
-  120: '#f472b6',
-  250: '#a78bfa'
-}
 
 onMounted(() => {
   chart = echarts.init(chartEl.value, 'dark')
@@ -81,7 +73,8 @@ async function renderLine(code) {
       name: '净值',
       type: 'line',
       data: navs,
-      lineStyle: { width: 1.5, color: '#94a3b8' },
+      lineStyle: { width: 1.5, color: '#cbd5e1' },
+      itemStyle: { color: '#cbd5e1' },
       symbol: 'none',
       smooth: false
     },
@@ -90,6 +83,7 @@ async function renderLine(code) {
       type: 'line',
       data: calcMA(navs, p),
       lineStyle: { width: 1, color: MA_COLORS[p] ?? '#fff' },
+      itemStyle: { color: MA_COLORS[p] ?? '#fff' },
       symbol: 'none',
       smooth: false
     }))
@@ -121,6 +115,7 @@ async function renderKline(code) {
       type: 'line',
       data: calcMA(closes, p),
       lineStyle: { width: 1, color: MA_COLORS[p] ?? '#fff' },
+      itemStyle: { color: MA_COLORS[p] ?? '#fff' },
       symbol: 'none',
       smooth: false
     }))
@@ -160,14 +155,14 @@ function buildOption(dates, series) {
       type: 'category',
       data: dates,
       axisLine: { lineStyle: { color: '#334155' } },
-      axisLabel: { color: '#64748b', fontSize: 11 },
+      axisLabel: { color: '#94a3b8', fontSize: 11 },
       splitLine: { show: false }
     },
     yAxis: {
       type: 'value',
       scale: true,
       axisLine: { lineStyle: { color: '#334155' } },
-      axisLabel: { color: '#64748b', fontSize: 11 },
+      axisLabel: { color: '#94a3b8', fontSize: 11 },
       splitLine: { lineStyle: { color: '#1e293b' } }
     },
     dataZoom: [
@@ -180,7 +175,7 @@ function buildOption(dates, series) {
         bottom: 8,
         fillerColor: 'rgba(59,130,246,0.15)',
         borderColor: '#334155',
-        textStyle: { color: '#64748b' }
+        textStyle: { color: '#94a3b8' }
       }
     ],
     series

@@ -37,7 +37,7 @@
     </div>
 
     <!-- Chart -->
-    <div class="bg-slate-900 rounded-xl border border-slate-700 p-3 mb-6">
+    <div class="bg-slate-800 rounded-xl border border-slate-700 p-3 mb-6">
       <div v-if="!currentFund" class="flex items-center justify-center h-64 text-slate-500 text-sm">
         搜索或选择一只基金开始查看
       </div>
