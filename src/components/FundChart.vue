@@ -95,7 +95,7 @@ async function renderLine(code) {
     }))
   ]
 
-  chart.setOption(buildOption(dates, series, false), true)
+  chart.setOption(buildOption(dates, series), true)
 }
 
 async function renderKline(code) {
@@ -126,10 +126,20 @@ async function renderKline(code) {
     }))
   ]
 
-  chart.setOption(buildOption(dates, series, true), true)
+  chart.setOption(buildOption(dates, series), true)
 }
 
-function buildOption(dates, series, isKline) {
+function calcZoomStart(dates) {
+  if (!dates.length) return 0
+  const cutoff = new Date()
+  cutoff.setFullYear(cutoff.getFullYear() - 3)
+  const cutoffStr = cutoff.toISOString().slice(0, 10)
+  const idx = dates.findIndex(d => d >= cutoffStr)
+  if (idx < 0) return 0
+  return Math.floor(idx / dates.length * 100)
+}
+
+function buildOption(dates, series) {
   return {
     backgroundColor: 'transparent',
     animation: false,
@@ -161,10 +171,10 @@ function buildOption(dates, series, isKline) {
       splitLine: { lineStyle: { color: '#1e293b' } }
     },
     dataZoom: [
-      { type: 'inside', start: isKline ? 60 : 0, end: 100 },
+      { type: 'inside', start: calcZoomStart(dates), end: 100 },
       {
         type: 'slider',
-        start: isKline ? 60 : 0,
+        start: calcZoomStart(dates),
         end: 100,
         height: 24,
         bottom: 8,
