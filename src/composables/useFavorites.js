@@ -29,9 +29,14 @@ export function useFavorites() {
     save()
   }
 
+  function removeMany(codes) {
+    favorites.value = favorites.value.filter(f => !codes.includes(f.code))
+    save()
+  }
+
   function isFavorite(code) {
     return favorites.value.some(f => f.code === code)
   }
 
-  return { favorites, add, remove, isFavorite }
+  return { favorites, add, remove, removeMany, isFavorite }
 }

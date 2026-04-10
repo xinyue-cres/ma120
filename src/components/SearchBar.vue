@@ -60,7 +60,7 @@ function onInput() {
     } catch {
       results.value = []
     }
-  }, 300)
+  }, 500)
 }
 
 function onEnter() {
